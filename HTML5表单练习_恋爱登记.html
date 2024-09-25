@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="zh_CH">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>恋爱登记</title>
+    <style>
+      body {
+        margin: 0;
+        padding: 0;
+        background-color: #f7f7f7;
+        display: grid;
+        place-items: center;
+        height: 100vh;
+        /* display+place-items+height，这三个加起来是为了把表格固定在正中央 */
+      }
+
+      form {
+        /* 最大宽度 */
+        max-width: 300px;
+        width: 100%;
+        margin: 32px auto 0;
+        font-size: 16px;
+      }
+
+      label {
+        display: block;
+        margin: 10px 0;
+      }
+
+      input {
+        width: 100%;
+        height: 25px;
+        margin-top: 2px;
+        display: block;
+      }
+    </style>
+  </head>
+  <body>
+    <form action="">
+      <fieldset>
+        <legend>情侣登记</legend>
+        <label for="">
+          犬方姓名（必填）：<input
+            type="text"
+            name="name"
+            required
+            list="myName"
+            placeholder="小犬娘"
+          />
+          <datalist id="myName">
+            <option>凛喵喵</option>
+            <option>倖喵喵</option>
+            <option>濑名泉</option>
+            <option>游木真</option>
+          </datalist>
+        </label>
+        <label for="">
+          喵方姓名（必填）：<input
+            type="text"
+            name="name2"
+            required
+            list="myName"
+            placeholder="小猫娘"
+          />
+          <datalist id="myName">
+            <option>凛喵喵</option>
+            <option>倖喵喵</option>
+            <option>濑名泉</option>
+            <option>游木真</option>
+          </datalist>
+        </label>
+        <label for="">
+          Email（任意）：<input type="email" name="email" id="email" />
+        </label>
+        <label> 相恋开始日期：<input type="date" name="date" /> </label>
+        <label>
+          相恋结束日期：<input type="text" value="永远" disabled />
+        </label>
+        <input type="submit" />
+      </fieldset>
+    </form>
+    <!-- 表单事件 -->
+    <script>
+      // 获取HTML元素
+      var email = document.getElementById("email");
+      //   监听email的无效输入事件
+      email.oninvalid = function () {
+        this.setCustomValidity("请输入正确的邮箱地址噢");
+      };
+    </script>
+    <audio src="media/想见你想见你想见你.mp3" controls loop></audio>
+  </body>
+</html>
