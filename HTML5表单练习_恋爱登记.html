@@ -6,21 +6,50 @@
     <title>恋爱登记</title>
     <style>
       body {
+        background-image: url(img/background-modified.png);
+        background-position: center;
+        background-size: cover;
         margin: 0;
         padding: 0;
-        background-color: #f7f7f7;
         display: grid;
         place-items: center;
         height: 100vh;
         /* display+place-items+height，这三个加起来是为了把表格固定在正中央 */
       }
 
+      /* 这是一个可以拖拽的容器 */
+      .draggable {
+        /* 提示用户可以拖拽 */
+        cursor: move;
+        z-index: 1;
+      }
+
+      .target {
+        max-width: 100px;
+        position: fixed;
+        height: auto;
+        bottom: 30%;
+        left: 25%;
+        cursor: pointer;
+        transition: transform 0.3s ease;
+        z-index: 2;
+      }
+
       form {
         /* 最大宽度 */
-        max-width: 300px;
-        width: 100%;
+        background-color: aliceblue;
+        bottom: 25%;
+        max-width: 500px;
+        width: 150%;
+        height: auto;
         margin: 32px auto 0;
         font-size: 16px;
+        /* 设置相对定位 */
+        position: relative;
+        /* 让元素左边距占据50%的屏幕宽度 */
+        left: 50%;
+        /* 使用transform将元素向左移动自身宽度的一半，实现居中 */
+        transform: translateX(-50%);
       }
 
       label {
@@ -37,50 +66,56 @@
     </style>
   </head>
   <body>
-    <form action="">
-      <fieldset>
-        <legend>情侣登记</legend>
-        <label for="">
-          犬方姓名（必填）：<input
-            type="text"
-            name="name"
-            required
-            list="myName"
-            placeholder="小犬娘"
-          />
-          <datalist id="myName">
-            <option>凛喵喵</option>
-            <option>倖喵喵</option>
-            <option>濑名泉</option>
-            <option>游木真</option>
-          </datalist>
-        </label>
-        <label for="">
-          喵方姓名（必填）：<input
-            type="text"
-            name="name2"
-            required
-            list="myName"
-            placeholder="小猫娘"
-          />
-          <datalist id="myName">
-            <option>凛喵喵</option>
-            <option>倖喵喵</option>
-            <option>濑名泉</option>
-            <option>游木真</option>
-          </datalist>
-        </label>
-        <label for="">
-          Email（任意）：<input type="email" name="email" id="email" />
-        </label>
-        <label> 相恋开始日期：<input type="date" name="date" /> </label>
-        <label>
-          相恋结束日期：<input type="text" value="永远" disabled />
-        </label>
-        <input type="submit" />
-      </fieldset>
-    </form>
+    <div class="draggable" draggable="true">
+      <form action="" class="myForm" draggable="true">
+        <fieldset>
+          <legend>情侣登记</legend>
+          <label for="">
+            犬方姓名（必填）：<input
+              type="text"
+              name="name"
+              required
+              list="myName"
+              placeholder="小犬娘"
+            />
+            <datalist id="myName">
+              <option>凛喵喵</option>
+              <option>倖喵喵</option>
+              <option>濑名泉</option>
+              <option>游木真</option>
+            </datalist>
+          </label>
+          <label for="">
+            喵方姓名（必填）：<input
+              type="text"
+              name="name2"
+              required
+              list="myName"
+              placeholder="小猫娘"
+            />
+            <datalist id="myName">
+              <option>凛喵喵</option>
+              <option>倖喵喵</option>
+              <option>濑名泉</option>
+              <option>游木真</option>
+            </datalist>
+          </label>
+          <label for="">
+            Email（任意）：<input type="email" name="email" id="email" />
+          </label>
+          <label> 相恋开始日期：<input type="date" name="date" /> </label>
+          <label>
+            相恋结束日期：<input type="text" value="永远" disabled />
+          </label>
+          <input type="submit" />
+        </fieldset>
+      </form>
+    </div>
+    <dir>
+      <img src="img/sticker.webp" atl="亲亲" class="target" draggable="true" />
+    </dir>
     <!-- 表单事件 -->
+
     <script>
       // 获取HTML元素
       var email = document.getElementById("email");
@@ -88,6 +123,54 @@
       email.oninvalid = function () {
         this.setCustomValidity("请输入正确的邮箱地址噢");
       };
+    </script>
+    <script>
+      // 绑定拖拽事件
+      var form = document.querySelector(".myForm");
+      var target = document.querySelector(".target");
+      //   拖拽开始
+      form.ondragstart = function () {
+        console.log("恋爱开始");
+      };
+      // 拖拽离开
+      form.ondragleave = function () {
+        console.log("生命终结");
+      };
+      // 拖拽结束
+      form.ondragend = function () {
+        console.log("坟墓火锅");
+        console.log("♡♡♡♡♡♡♡♡♡♡♡♡♡♡♡♡♡");
+      };
+      // 当被拖拽元素进入时触发
+      target.ondragenter = function () {
+        console.log("媳妇儿，我来了——");
+      };
+      //   当被拖拽元素离开
+      target.ondragleave = function () {
+        console.log("吃完一只小猫娘，去工作了♡");
+      };
+      //   当拖拽元素在目标元素上连续触发
+      target.ondragover = function (e) {
+        // 阻止拖拽事件的默认行为
+        e.preventDefault();
+        console.log("涩涩中，请勿打扰♡");
+      };
+      //当在目标元素上松开鼠标时触发
+      target.ondrop = function () {
+        console.log("该去工作了...");
+      };
+      //   // 获取目标元素的尺寸
+      //   const targetWidth = target.offsetWidth;
+      //   const targetHeight = target.offsetHeight;
+
+      //   // 计算右上角位置
+      //   const topPosition = 0; // 表单顶部
+      //   const leftPosition = form.offsetWidth - targetWidth; // 表单右侧
+
+      //   // 设置目标元素的位置
+      //   target.style.position = "absolute"; // 设置为绝对定位
+      //   target.style.top = `${topPosition}px`;
+      //   target.style.left = `${leftPosition}px`;
     </script>
     <audio src="media/想见你想见你想见你.mp3" controls loop></audio>
   </body>
